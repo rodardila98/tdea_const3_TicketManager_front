@@ -1,0 +1,9 @@
+{
+  "usuarios": [
+    { "id": "1", "nombre": "Ana", "rol": "Frontend Developer" },
+    { "id": "2", "nombre": "Carlos", "rol": "Backend Developer" }
+  ],
+  "productos": [
+    { "id": "101", "nombre": "Teclado Mecánico", "precio": 75 }
+  ]
+}
