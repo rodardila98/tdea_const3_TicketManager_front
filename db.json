@@ -1,24 +1,12 @@
 {
-  "empresas": [
-    { "id": "EMP01", "nombre": "Tech Solutions", "codigoValidacion": "12345" }
-  ],
-  "tecnicos": [
-    { "id": 1, "nombre": "Ana Gómez", "documento": "1001", "correo": "ana@soporte.com", "celular": "300123", "especialidad": "Redes", "estado": "Activo" }
-  ],
   "tickets": [
     {
-      "id": 1,
-      "empresaId": "EMP01",
+      "id": "1",
+      "empresa": "Tech Solutions",
       "solicitante": "Juan Pérez",
-      "correo": "juan@empresa.com",
-      "celular": "311000",
-      "descripcion": "Falla en el router principal",
+      "descripcion": "El servidor no responde",
       "prioridad": "Alta",
-      "estado": "Abierto",
-      "tecnicoAsignado": null,
-      "historial": [
-        { "fecha": "2026-09-17", "accion": "Ticket creado", "observacion": "Generado por sistema" }
-      ]
+      "estado": "Abierto"
     }
   ]
 }
