@@ -1,9 +1,24 @@
 {
-  "usuarios": [
-    { "id": "1", "nombre": "Ana", "rol": "Frontend Developer" },
-    { "id": "2", "nombre": "Carlos", "rol": "Backend Developer" }
+  "empresas": [
+    { "id": "EMP01", "nombre": "Tech Solutions", "codigoValidacion": "12345" }
   ],
-  "productos": [
-    { "id": "101", "nombre": "Teclado Mecánico", "precio": 75 }
+  "tecnicos": [
+    { "id": 1, "nombre": "Ana Gómez", "documento": "1001", "correo": "ana@soporte.com", "celular": "300123", "especialidad": "Redes", "estado": "Activo" }
+  ],
+  "tickets": [
+    {
+      "id": 1,
+      "empresaId": "EMP01",
+      "solicitante": "Juan Pérez",
+      "correo": "juan@empresa.com",
+      "celular": "311000",
+      "descripcion": "Falla en el router principal",
+      "prioridad": "Alta",
+      "estado": "Abierto",
+      "tecnicoAsignado": null,
+      "historial": [
+        { "fecha": "2026-09-17", "accion": "Ticket creado", "observacion": "Generado por sistema" }
+      ]
+    }
   ]
 }
