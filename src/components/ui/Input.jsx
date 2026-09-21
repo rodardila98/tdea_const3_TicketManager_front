@@ -6,7 +6,7 @@ en el formulario */
 export default function Input({type="text", placeholder, value, onChange, name}){
     return (
         <div style={{marginBottom: "10px"}}>
-            {label && <label style={{ display: 'block', fontWeight: 'bold' }}>{label}</label>}
+            {label && <label style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b' }}>{label}</label>}
             
             <input 
         type={type} /*Tipo de dato que recibe*/
@@ -14,6 +14,15 @@ export default function Input({type="text", placeholder, value, onChange, name})
         placeholder={placeholder} /*El texto de ejemplo dentro de la casilla a rellenar*/
         value={value} /*El texto que escribe el usuario*/
         onChange={onChange} /*La función que se dispara cada que se escribe o borra texto*/
+        style={{
+          padding: '10px 14px',
+          borderRadius: '8px',
+          border: '1px solid #cbd5e1',
+          backgroundColor: '#ffffff',
+          fontSize: '14px',
+          color: '#334155',
+          outline: 'none'
+        }}
       />
             
         </div>

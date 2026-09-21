@@ -9,13 +9,20 @@ export default Button ({Childrenhildren, type : "button", onClick}); {
             type={type} //En este caso es el valor por defecto del boton
             onClick={onClick} // La funcion que se ejecuta al dar clic
             style={{
-                padding: '10px 16px',
-                backgroundColor: '#2563eb', // Color boton
-                color: '#ffffff',  // Color texto
+                width: '100%',
+                padding: '12px 16px',
+                backgroundColor: '#0066cc', // Azul primario de tu mockup
+                color: '#ffffff',
                 border: 'none',
-                borderRadius: '6px',
+                borderRadius: '8px',
+                fontWeight: '600',
+                fontSize: '15px',
                 cursor: 'pointer',
-                fontWeight: 'bold'
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                marginTop: '8px'
             }} // El estilo 
         >
             {Children}
