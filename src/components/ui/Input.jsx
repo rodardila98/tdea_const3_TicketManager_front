@@ -9,11 +9,11 @@ export default function Input({type="text", placeholder, value, onChange, name})
             {label && <label style={{ display: 'block', fontWeight: 'bold' }}>{label}</label>}
             
             <input 
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
+        type={type} /*Tipo de dato que recibe*/
+        name={name} /*El id del campo para diferenciar los input*/
+        placeholder={placeholder} /*El texto de ejemplo dentro de la casilla a rellenar*/
+        value={value} /*El texto que escribe el usuario*/
+        onChange={onChange} /*La función que se dispara cada que se escribe o borra texto*/
       />
             
         </div>
