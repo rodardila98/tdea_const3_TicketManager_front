@@ -14,7 +14,7 @@ export default function Navbar() {
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <span style={{ fontSize: '18px' }}>🎫</span>
         <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: '700' }}>
-          Gestor de Tickets - TdeA
+          Ticket Manager - TdeA
         </h2>
       </div>
 
