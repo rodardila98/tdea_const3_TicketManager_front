@@ -130,7 +130,7 @@ export default function TicketForm({ onTicketCreated }) {
         required={true} // Con esto ponemos el * y se bloquea el envío si está vacío
       />
 
-      {/* Campo 3: Descripción */}
+      {/* Campo 5: Descripción */}
       <Textarea
         label="Descripción"
         placeholder="Describe el problema o solicitud..."
@@ -139,7 +139,7 @@ export default function TicketForm({ onTicketCreated }) {
         required
       />
 
-      {/* Campo 4: Prioridad */}
+      {/* Campo 6: Prioridad */}
       <Select
         label="Prioridad"
         value={prioridad}
