@@ -10,7 +10,7 @@ export default function TicketForm({onTicketCreated}) {
     const [empresa, setEmpresa] = useState('');
     const [solicitante, setSolicitante] = useState('');
     const [descripcion, setDescripcion] = useState('');
-    const [prioridad, setPrioridad] = useState('');
+    const [prioridad, setPrioridad] = useState('Baja'); // Valor por defecto para el select de prioridad
 
     //Estado para error de campos vacios
     const [error, setError] = useState('');
