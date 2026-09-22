@@ -1,12 +1,15 @@
 {
   "tickets": [
     {
-      "id": "1",
-      "empresa": "Tech Solutions",
-      "solicitante": "Juan Pérez",
-      "descripcion": "El servidor no responde",
-      "prioridad": "Alta",
-      "estado": "Abierto"
+      "empresa": "Acme",
+      "solicitante": "Rodrigo Ardila",
+      "correo": "r@r.com",
+      "celular": "3112816084",
+      "descripcion": "Servidor caído",
+      "prioridad": "Baja",
+      "estado": "Abierto",
+      "id": "tdZHHSVmyJs"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

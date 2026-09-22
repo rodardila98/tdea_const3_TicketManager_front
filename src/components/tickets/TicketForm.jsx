@@ -3,20 +3,24 @@
 import { useState } from "react";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
+import Textarea from "../ui/Textarea";
+import Select from "../ui/Select";
 
 
-export default function TicketForm({onTicketCreated}) {
-//Estado por cada componente, es la menara de comunicar con app.jsx
-    const [empresa, setEmpresa] = useState('');
-    const [solicitante, setSolicitante] = useState('');
-    const [descripcion, setDescripcion] = useState('');
-    const [prioridad, setPrioridad] = useState('Baja'); // Valor por defecto para el select de prioridad
+export default function TicketForm({ onTicketCreated }) {
+  //Estado por cada componente, es la menara de comunicar con app.jsx
+  const [empresa, setEmpresa] = useState('');
+  const [solicitante, setSolicitante] = useState('');
+  const [correo, setCorreo] = useState(''); //Nuevo estado para correo
+  const [celular, setCelular] = useState(''); // Nuevo estado para celular
+  const [descripcion, setDescripcion] = useState('');
+  const [prioridad, setPrioridad] = useState('Baja'); // Valor por defecto para el select de prioridad
 
-    //Estado para error de campos vacios
-    const [error, setError] = useState('');
+  //Estado para error de campos vacios
+  const [error, setError] = useState('');
 
-    //Función que procesa el envío del formulario
-    const handleSubmit = (e) => {
+  //Función que procesa el envío del formulario
+  const handleSubmit = (e) => {
     e.preventDefault(); //Evita que la página web se recargue
 
     // Validación: verificar que no haya campos requeridos vacíos
@@ -31,6 +35,8 @@ export default function TicketForm({onTicketCreated}) {
     const nuevoTicket = {
       empresa: empresa,
       solicitante: solicitante,
+      correo: correo,
+      celular: celular,
       descripcion: descripcion,
       prioridad: prioridad,
       estado: 'Abierto' // Estado inicial por defecto
@@ -47,6 +53,8 @@ export default function TicketForm({onTicketCreated}) {
     // 4. Limpiamos los campos del formulario tras guardar con éxito
     setEmpresa('');
     setSolicitante('');
+    setCorreo('');
+    setcelular('');
     setDescripcion('');
     setPrioridad('Baja');
   };
@@ -68,7 +76,7 @@ export default function TicketForm({onTicketCreated}) {
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
         <span style={{ fontSize: '28px', backgroundColor: '#e0f2fe', padding: '8px 12px', borderRadius: '10px' }}>🎫</span>
         <div>
-          <h3 style={{ margin: 0, color: '#0f172a', fontSize: '1.25rem' }}>Crear Nuevo Ticket</h3>
+          <h3 style={{ margin: 0, color: '#0f172a', fontSize: '1.25rem' }}>Crear nuevo ticket</h3>
           <p style={{ margin: '4px 0 0 0', color: '#64748b', fontSize: '13px' }}>
             Completa la información para generar un nuevo ticket de soporte.
           </p>
@@ -86,66 +94,64 @@ export default function TicketForm({onTicketCreated}) {
 
       {/* Campo 1: Empresa */}
       <Input
-        label="Empresa *"
-        placeholder="Escribe el nombre de la empresa"
+        label="Empresa"
+        placeholder="Nombre de la empresa"
         value={empresa}
         onChange={(e) => setEmpresa(e.target.value)}
+        required={true} // Con esto ponemos el * y se bloquea el envío si está vacío
       />
 
       {/* Campo 2: Solicitante */}
       <Input
-        label="Solicitante *"
+        label="Solicitante"
         placeholder="Nombre de quien solicita"
         value={solicitante}
         onChange={(e) => setSolicitante(e.target.value)}
+        required={true} // Con esto ponemos el * y se bloquea el envío si está vacío
+      />
+
+      {/* Campo 3: Correo (NUEVO) */}
+      <Input
+        type="email"
+        label="Correo electrónico"
+        placeholder="ejemplo@empresa.com"
+        value={correo}
+        onChange={(e) => setCorreo(e.target.value)}
+        required={true} // Con esto ponemos el * y se bloquea el envío si está vacío
+      />
+
+      {/* Campo 4: Celular (NUEVO) */}
+      <Input
+        type="tel"
+        label="Celular"
+        placeholder="Número de contacto"
+        value={celular}
+        onChange={(e) => setCelular(e.target.value)}
+        required={true} // Con esto ponemos el * y se bloquea el envío si está vacío
       />
 
       {/* Campo 3: Descripción */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '16px' }}>
-        <label style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b' }}>
-          Descripción *
-        </label>
-        <textarea
-          rows="3"
-          placeholder="Describe el problema o solicitud..."
-          value={descripcion}
-          onChange={(e) => setDescripcion(e.target.value)}
-          style={{
-            padding: '10px 14px',
-            borderRadius: '8px',
-            border: '1px solid #cbd5e1',
-            fontSize: '14px',
-            fontFamily: 'inherit',
-            resize: 'vertical'
-          }}
-        />
-      </div>
+      <Textarea
+        label="Descripción"
+        placeholder="Describe el problema o solicitud..."
+        value={descripcion}
+        onChange={(e) => setDescripcion(e.target.value)}
+        required
+      />
 
       {/* Campo 4: Prioridad */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '24px' }}>
-        <label style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b' }}>
-          Prioridad
-        </label>
-        <select
-          value={prioridad}
-          onChange={(e) => setPrioridad(e.target.value)}
-          style={{
-            padding: '10px 14px',
-            borderRadius: '8px',
-            border: '1px solid #cbd5e1',
-            backgroundColor: '#ffffff',
-            fontSize: '14px'
-          }}
-        >
-          <option value="Baja">Baja</option>
-          <option value="Media">Media</option>
-          <option value="Alta">Alta</option>
-        </select>
-      </div>
+      <Select
+        label="Prioridad"
+        value={prioridad}
+        onChange={(e) => setPrioridad(e.target.value)}
+        required
+        options={["Baja", "Media", "Alta"]} // Le pasamos las opciones como un arreglo
+      />
 
       {/* Botón de Enviar */}
-      <Button type="submit">
-        💾 Guardar Ticket
+      <Button
+        type="submit">
+        Guardar ticket
       </Button>
     </form>
   );

@@ -1,7 +1,7 @@
 // src/api/ticketService.js
 
 // Guardamos la URL en una constante para no repetirla en cada función
-const API_URL = "http://localhost:3000/tickets";
+const API_URL = "http://localhost:3001/tickets";
 
 // 1. Obtener todos los tickets (GET)
 export const getTickets = async () => {
