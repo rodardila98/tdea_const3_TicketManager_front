@@ -3,7 +3,7 @@ import { Children } from "react"; // La palabre Children se refiere a lo que
 // va dentro de la etiqueta ej: <Buton>Guardar Tiket</Button>
 
 
-export default Button ({Childrenhildren, type : "button", onClick}); {
+export default Button ({children, type : "button", onClick}); {
     return (
         <button
             type={type} //En este caso es el valor por defecto del boton
