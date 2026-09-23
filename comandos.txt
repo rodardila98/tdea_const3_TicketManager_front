@@ -1,1 +1,2 @@
+npm run dev - Para iniciar el proyecto de React
 npm run server - Para iniciar el "json-server"

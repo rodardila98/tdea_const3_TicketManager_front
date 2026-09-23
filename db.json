@@ -1,9 +1,15 @@
 {
-  "usuarios": [
-    { "id": "1", "nombre": "Ana", "rol": "Frontend Developer" },
-    { "id": "2", "nombre": "Carlos", "rol": "Backend Developer" }
+  "tickets": [
+    {
+      "empresa": "Acme",
+      "solicitante": "Rodrigo Ardila",
+      "correo": "r@r.com",
+      "celular": "3112816084",
+      "descripcion": "Servidor caído",
+      "prioridad": "Baja",
+      "estado": "Abierto",
+      "id": "tdZHHSVmyJs"
+    }
   ],
-  "productos": [
-    { "id": "101", "nombre": "Teclado Mecánico", "precio": 75 }
-  ]
+  "$schema": "./node_modules/json-server/schema.json"
 }
