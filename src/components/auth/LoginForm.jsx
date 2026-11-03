@@ -43,7 +43,7 @@ export default function LoginForm({ onLoginSuccess, onIrARegistro }) {
       <div style={{ textAlign: 'center', marginBottom: '24px' }}>
         <span style={{ fontSize: '36px' }}>🔐</span>
         <h2 style={{ margin: '8px 0 4px 0', color: '#0f172a', fontSize: '1.4rem' }}>
-          Iniciar Sesión
+          Iniciar sesión
         </h2>
         <p style={{ margin: 0, color: '#64748b', fontSize: '13px' }}>
           Ingresa con tu cuenta de agente o administrador para gestionar los tickets
