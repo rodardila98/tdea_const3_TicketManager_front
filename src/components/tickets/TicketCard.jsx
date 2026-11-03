@@ -14,7 +14,7 @@ const COLORES_PRIORIDAD = {
   Baja: "#2e7d32",
 };
 
-function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
+function TicketCard({ ticket, onUpdateStatus, onDeleteTicket, esAdmin }) {
   const colorPrioridad = COLORES_PRIORIDAD[ticket.prioridad] || "#616161";
 
   const estilos = {
@@ -29,7 +29,7 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       flexDirection: "column",
       gap: "12px",
       overflow: "hidden",
-      height: "100%", // Ocupa toda la altura de la fila del grid
+      height: "100%",
       boxSizing: "border-box",
     },
     encabezado: {
@@ -87,16 +87,16 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       gap: "12px",
       borderTop: "1px solid #eeeeee",
       paddingTop: "12px",
-      marginTop: "auto", // Estandariza la posición: empuja siempre la barra de acciones al fondo
+      marginTop: "auto", // Estandariza la posición en el fondo
     },
     select: {
       padding: "6px 10px",
       borderRadius: "4px",
-      border: "1px solid #bdbdbd",
+      border: "1px solid #cbd5e1",
       fontSize: "14px",
       backgroundColor: "#ffffff",
       color: "#212121",
-      minWidth: "135px", // Mantiene un ancho uniforme para todos los estados
+      minWidth: "135px",
       cursor: "pointer",
     },
     botonEliminar: {
@@ -135,25 +135,31 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       <p style={estilos.descripcion}>{ticket.descripcion}</p>
 
       <footer style={estilos.acciones}>
-        <select
-          style={estilos.select}
-          value={ticket.estado}
-          onChange={(evento) => onUpdateStatus(ticket.id, evento.target.value)}
-        >
-          {ESTADOS.map((estado) => (
-            <option key={estado} value={estado}>
-              {estado}
-            </option>
-          ))}
-        </select>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: esAdmin ? "none" : 1 }}>
+          <label style={{ fontSize: "13px", color: "#64748b", fontWeight: "600" }}>Estado:</label>
+          <select
+            style={{ ...estilos.select, width: esAdmin ? "auto" : "100%" }}
+            value={ticket.estado}
+            onChange={(evento) => onUpdateStatus(ticket.id, evento.target.value)}
+          >
+            {ESTADOS.map((estado) => (
+              <option key={estado} value={estado}>
+                {estado}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <button
-          type="button"
-          style={estilos.botonEliminar}
-          onClick={() => onDeleteTicket(ticket.id)}
-        >
-          Eliminar
-        </button>
+        {/* Solo el rol Admin tiene permitido eliminar tickets */}
+        {esAdmin && (
+          <button
+            type="button"
+            style={estilos.botonEliminar}
+            onClick={() => onDeleteTicket(ticket.id)}
+          >
+            Eliminar
+          </button>
+        )}
       </footer>
     </article>
   );

@@ -195,6 +195,7 @@ export default function App() {
                                     tickets={tickets}
                                     onUpdateStatus={handleCambiarEstado}
                                     onDeleteTicket={handleEliminarTicket}
+                                    esAdmin={usuario?.role === 'admin'}
                                 />
                             </section>
                         )}
