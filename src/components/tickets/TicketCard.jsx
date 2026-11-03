@@ -28,17 +28,20 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       display: "flex",
       flexDirection: "column",
       gap: "12px",
+      overflow: "hidden", // Previene que cualquier contenido se desborde de la tarjeta
     },
     encabezado: {
       display: "flex",
       justifyContent: "space-between",
-      alignItems: "center",
+      alignItems: "flex-start",
       gap: "12px",
     },
     empresa: {
       margin: 0,
       fontSize: "18px",
       color: "#212121",
+      wordBreak: "break-word",
+      overflowWrap: "anywhere",
     },
     prioridad: {
       backgroundColor: colorPrioridad,
@@ -51,7 +54,7 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
     },
     datos: {
       display: "grid",
-      gridTemplateColumns: "120px 1fr",
+      gridTemplateColumns: "85px minmax(0, 1fr)", // 85px para etiquetas y minmax(0, 1fr) para evitar desborde en grid
       gap: "6px 12px",
       fontSize: "14px",
       color: "#424242",
@@ -61,12 +64,18 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       fontWeight: "bold",
       color: "#616161",
     },
+    valor: {
+      wordBreak: "break-word",
+      overflowWrap: "anywhere", // Permite que correos o textos largos pasen a la siguiente línea
+    },
     descripcion: {
       margin: 0,
       fontSize: "14px",
       color: "#424242",
       textAlign: "left",
       lineHeight: 1.5,
+      wordBreak: "break-word",
+      overflowWrap: "anywhere",
     },
     acciones: {
       display: "flex",
@@ -104,16 +113,16 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
 
       <div style={estilos.datos}>
         <span style={estilos.etiqueta}>Solicitante:</span>
-        <span>{ticket.solicitante}</span>
+        <span style={estilos.valor}>{ticket.solicitante}</span>
 
         <span style={estilos.etiqueta}>Correo:</span>
-        <span>{ticket.correo}</span>
+        <span style={estilos.valor}>{ticket.correo}</span>
 
         <span style={estilos.etiqueta}>Celular:</span>
-        <span>{ticket.celular}</span>
+        <span style={estilos.valor}>{ticket.celular}</span>
 
         <span style={estilos.etiqueta}>Estado:</span>
-        <span>{ticket.estado}</span>
+        <span style={estilos.valor}>{ticket.estado}</span>
       </div>
 
       <p style={estilos.descripcion}>{ticket.descripcion}</p>
