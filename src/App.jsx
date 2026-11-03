@@ -10,23 +10,26 @@ import TicketList from "./components/tickets/TicketList";
 
 export default function App() {
     const [tickets, setTickets] = useState([]);
-    // NUEVO: Estado para controlar qué "pestaña" o vista se muestra
-    const [vistaActual, setVistaActual] = useState("lista"); // Puede ser "lista" o "formulario"
+    // Estado para controlar qué vista se muestra ('lista' o 'formulario')
+    const [vistaActual, setVistaActual] = useState("lista");
 
     useEffect(() => {
-        cargarDatos();
+        let isMounted = true;
+        getTickets().then((datos) => {
+            if (isMounted) {
+                setTickets(datos || []);
+            }
+        });
+        return () => {
+            isMounted = false;
+        };
     }, []);
-
-    const cargarDatos = async () => {
-        const datos = await getTickets();
-        setTickets(datos || []);
-    };
 
     const handleCrearTicket = async (nuevoTicket) => {
         const ticketGuardado = await createTicket(nuevoTicket);
         if (ticketGuardado) {
             setTickets([...tickets, ticketGuardado]);
-            // NUEVO: Redirección automática a la lista después de guardar
+            // Redirección automática a la lista después de guardar
             setVistaActual("lista");
         }
     };
@@ -55,7 +58,7 @@ export default function App() {
         },
         main: {
             padding: "32px",
-            maxWidth: "1000px", // Reducimos un poco el ancho máximo para que se vea mejor centrado
+            maxWidth: "1000px",
             margin: "0 auto",
         },
         // Estilos para el menú de pestañas
@@ -106,7 +109,7 @@ export default function App() {
                     </button>
                 </nav>
 
-                {/* Renderizado Condicional: Solo dibuja el componente que coincide con el estado */}
+                {/* Renderizado Condicional: Dibuja el componente que coincide con la pestaña activa */}
                 {vistaActual === "formulario" ? (
                     <section>
                         <TicketForm onTicketCreated={handleCrearTicket} />
