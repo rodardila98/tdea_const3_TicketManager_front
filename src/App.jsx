@@ -9,11 +9,13 @@ import Navbar from "./components/layout/Navbar";
 import TicketForm from "./components/tickets/TicketForm";
 import TicketList from "./components/tickets/TicketList";
 import LoginForm from "./components/auth/LoginForm";
+import RegisterForm from "./components/auth/RegisterForm";
 
 export default function App() {
     const [usuario, setUsuario] = useState(getUsuarioActual());
     const [tickets, setTickets] = useState([]);
     const [vistaActual, setVistaActual] = useState("lista"); // 'lista' o 'formulario'
+    const [modoAuth, setModoAuth] = useState("login"); // 'login' o 'registro'
     const [errorApi, setErrorApi] = useState("");
 
     const handleLogout = () => {
@@ -21,6 +23,7 @@ export default function App() {
         setUsuario(null);
         setTickets([]);
         setErrorApi("");
+        setModoAuth("login");
     };
 
     const handleLogin = async (email, password) => {
@@ -143,8 +146,18 @@ export default function App() {
 
             <main style={estilos.main}>
                 {!usuario ? (
-                    // Si no está autenticado, mostramos el formulario de login
-                    <LoginForm onLoginSuccess={handleLogin} />
+                    // Si no está autenticado, alternamos entre Login y Registro
+                    modoAuth === "login" ? (
+                        <LoginForm
+                            onLoginSuccess={handleLogin}
+                            onIrARegistro={() => setModoAuth("registro")}
+                        />
+                    ) : (
+                        <RegisterForm
+                            onRegisterSuccess={() => setModoAuth("login")}
+                            onIrALogin={() => setModoAuth("login")}
+                        />
+                    )
                 ) : (
                     // Si está autenticado, mostramos la interfaz de tickets
                     <>

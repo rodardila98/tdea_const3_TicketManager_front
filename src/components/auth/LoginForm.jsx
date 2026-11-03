@@ -2,7 +2,7 @@ import { useState } from "react";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 
-export default function LoginForm({ onLoginSuccess }) {
+export default function LoginForm({ onLoginSuccess, onIrARegistro }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cargando, setCargando] = useState(false);
@@ -85,6 +85,28 @@ export default function LoginForm({ onLoginSuccess }) {
       <Button type="submit">
         {cargando ? 'Ingresando...' : 'Acceder al sistema'}
       </Button>
+
+      <div style={{ textAlign: 'center', marginTop: '16px' }}>
+        <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
+          ¿No tienes una cuenta?{' '}
+          <button
+            type="button"
+            onClick={onIrARegistro}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#0066cc',
+              fontWeight: '600',
+              cursor: 'pointer',
+              padding: 0,
+              fontSize: '13px',
+              textDecoration: 'underline'
+            }}
+          >
+            Regístrate aquí
+          </button>
+        </p>
+      </div>
     </form>
   );
 }
