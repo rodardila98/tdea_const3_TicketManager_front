@@ -28,7 +28,9 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       display: "flex",
       flexDirection: "column",
       gap: "12px",
-      overflow: "hidden", // Previene que cualquier contenido se desborde de la tarjeta
+      overflow: "hidden",
+      height: "100%", // Ocupa toda la altura de la fila del grid
+      boxSizing: "border-box",
     },
     encabezado: {
       display: "flex",
@@ -54,7 +56,7 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
     },
     datos: {
       display: "grid",
-      gridTemplateColumns: "85px minmax(0, 1fr)", // 85px para etiquetas y minmax(0, 1fr) para evitar desborde en grid
+      gridTemplateColumns: "85px minmax(0, 1fr)",
       gap: "6px 12px",
       fontSize: "14px",
       color: "#424242",
@@ -66,7 +68,7 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
     },
     valor: {
       wordBreak: "break-word",
-      overflowWrap: "anywhere", // Permite que correos o textos largos pasen a la siguiente línea
+      overflowWrap: "anywhere",
     },
     descripcion: {
       margin: 0,
@@ -76,6 +78,7 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       lineHeight: 1.5,
       wordBreak: "break-word",
       overflowWrap: "anywhere",
+      marginBottom: "8px",
     },
     acciones: {
       display: "flex",
@@ -84,6 +87,7 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       gap: "12px",
       borderTop: "1px solid #eeeeee",
       paddingTop: "12px",
+      marginTop: "auto", // Estandariza la posición: empuja siempre la barra de acciones al fondo
     },
     select: {
       padding: "6px 10px",
@@ -92,6 +96,8 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       fontSize: "14px",
       backgroundColor: "#ffffff",
       color: "#212121",
+      minWidth: "135px", // Mantiene un ancho uniforme para todos los estados
+      cursor: "pointer",
     },
     botonEliminar: {
       padding: "6px 14px",
@@ -101,6 +107,7 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       color: "#ffffff",
       fontSize: "14px",
       cursor: "pointer",
+      fontWeight: "600",
     },
   };
 
