@@ -14,7 +14,7 @@ const COLORES_PRIORIDAD = {
   Baja: "#2e7d32",
 };
 
-function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
+function TicketCard({ ticket, onUpdateStatus, onDeleteTicket, esAdmin }) {
   const colorPrioridad = COLORES_PRIORIDAD[ticket.prioridad] || "#616161";
 
   const estilos = {
@@ -28,17 +28,22 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       display: "flex",
       flexDirection: "column",
       gap: "12px",
+      overflow: "hidden",
+      height: "100%",
+      boxSizing: "border-box",
     },
     encabezado: {
       display: "flex",
       justifyContent: "space-between",
-      alignItems: "center",
+      alignItems: "flex-start",
       gap: "12px",
     },
     empresa: {
       margin: 0,
       fontSize: "18px",
       color: "#212121",
+      wordBreak: "break-word",
+      overflowWrap: "anywhere",
     },
     prioridad: {
       backgroundColor: colorPrioridad,
@@ -51,7 +56,7 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
     },
     datos: {
       display: "grid",
-      gridTemplateColumns: "120px 1fr",
+      gridTemplateColumns: "85px minmax(0, 1fr)",
       gap: "6px 12px",
       fontSize: "14px",
       color: "#424242",
@@ -61,12 +66,19 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       fontWeight: "bold",
       color: "#616161",
     },
+    valor: {
+      wordBreak: "break-word",
+      overflowWrap: "anywhere",
+    },
     descripcion: {
       margin: 0,
       fontSize: "14px",
       color: "#424242",
       textAlign: "left",
       lineHeight: 1.5,
+      wordBreak: "break-word",
+      overflowWrap: "anywhere",
+      marginBottom: "8px",
     },
     acciones: {
       display: "flex",
@@ -75,14 +87,17 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       gap: "12px",
       borderTop: "1px solid #eeeeee",
       paddingTop: "12px",
+      marginTop: "auto", // Estandariza la posición en el fondo
     },
     select: {
       padding: "6px 10px",
       borderRadius: "4px",
-      border: "1px solid #bdbdbd",
+      border: "1px solid #cbd5e1",
       fontSize: "14px",
       backgroundColor: "#ffffff",
       color: "#212121",
+      minWidth: "135px",
+      cursor: "pointer",
     },
     botonEliminar: {
       padding: "6px 14px",
@@ -92,6 +107,7 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
       color: "#ffffff",
       fontSize: "14px",
       cursor: "pointer",
+      fontWeight: "600",
     },
   };
 
@@ -104,40 +120,46 @@ function TicketCard({ ticket, onUpdateStatus, onDeleteTicket }) {
 
       <div style={estilos.datos}>
         <span style={estilos.etiqueta}>Solicitante:</span>
-        <span>{ticket.solicitante}</span>
+        <span style={estilos.valor}>{ticket.solicitante}</span>
 
         <span style={estilos.etiqueta}>Correo:</span>
-        <span>{ticket.correo}</span>
+        <span style={estilos.valor}>{ticket.correo}</span>
 
         <span style={estilos.etiqueta}>Celular:</span>
-        <span>{ticket.celular}</span>
+        <span style={estilos.valor}>{ticket.celular}</span>
 
         <span style={estilos.etiqueta}>Estado:</span>
-        <span>{ticket.estado}</span>
+        <span style={estilos.valor}>{ticket.estado}</span>
       </div>
 
       <p style={estilos.descripcion}>{ticket.descripcion}</p>
 
       <footer style={estilos.acciones}>
-        <select
-          style={estilos.select}
-          value={ticket.estado}
-          onChange={(evento) => onUpdateStatus(ticket.id, evento.target.value)}
-        >
-          {ESTADOS.map((estado) => (
-            <option key={estado} value={estado}>
-              {estado}
-            </option>
-          ))}
-        </select>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: esAdmin ? "none" : 1 }}>
+          <label style={{ fontSize: "13px", color: "#64748b", fontWeight: "600" }}>Estado:</label>
+          <select
+            style={{ ...estilos.select, width: esAdmin ? "auto" : "100%" }}
+            value={ticket.estado}
+            onChange={(evento) => onUpdateStatus(ticket.id, evento.target.value)}
+          >
+            {ESTADOS.map((estado) => (
+              <option key={estado} value={estado}>
+                {estado}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <button
-          type="button"
-          style={estilos.botonEliminar}
-          onClick={() => onDeleteTicket(ticket.id)}
-        >
-          Eliminar
-        </button>
+        {/* Solo el rol Admin tiene permitido eliminar tickets */}
+        {esAdmin && (
+          <button
+            type="button"
+            style={estilos.botonEliminar}
+            onClick={() => onDeleteTicket(ticket.id)}
+          >
+            Eliminar
+          </button>
+        )}
       </footer>
     </article>
   );

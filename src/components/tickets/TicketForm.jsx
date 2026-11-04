@@ -1,30 +1,28 @@
-
-//Se importa libreria useState y componentes input y button
+// Se importa librería useState y componentes reutilizables
 import { useState } from "react";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 import Textarea from "../ui/Textarea";
 import Select from "../ui/Select";
 
-
 export default function TicketForm({ onTicketCreated }) {
-  //Estado por cada componente, es la menara de comunicar con app.jsx
+  // Estado para los campos del formulario
   const [empresa, setEmpresa] = useState('');
   const [solicitante, setSolicitante] = useState('');
-  const [correo, setCorreo] = useState(''); //Nuevo estado para correo
-  const [celular, setCelular] = useState(''); // Nuevo estado para celular
+  const [correo, setCorreo] = useState('');
+  const [celular, setCelular] = useState('');
   const [descripcion, setDescripcion] = useState('');
-  const [prioridad, setPrioridad] = useState('Baja'); // Valor por defecto para el select de prioridad
+  const [prioridad, setPrioridad] = useState('Baja');
 
-  //Estado para error de campos vacios
+  // Estado para error de validación en frontend
   const [error, setError] = useState('');
 
-  //Función que procesa el envío del formulario
+  // Función que procesa el envío del formulario
   const handleSubmit = (e) => {
-    e.preventDefault(); //Evita que la página web se recargue
+    e.preventDefault(); // Evita que la página web se recargue
 
-    // Validación: verificar que no haya campos requeridos vacíos
-    if (!empresa.trim() || !solicitante.trim() || !descripcion.trim()) {
+    // Validación básica: verificar que no haya campos requeridos vacíos
+    if (!empresa.trim() || !solicitante.trim() || !correo.trim() || !celular.trim() || !descripcion.trim()) {
       setError('Por favor completa todos los campos obligatorios.');
       return;
     }
@@ -33,28 +31,25 @@ export default function TicketForm({ onTicketCreated }) {
 
     // Armamos el objeto con la estructura que necesita el sistema
     const nuevoTicket = {
-      empresa: empresa,
-      solicitante: solicitante,
-      correo: correo,
-      celular: celular,
-      descripcion: descripcion,
+      empresa: empresa.trim(),
+      solicitante: solicitante.trim(),
+      correo: correo.trim(),
+      celular: celular.trim(),
+      descripcion: descripcion.trim(),
       prioridad: prioridad,
       estado: 'Abierto' // Estado inicial por defecto
     };
 
-    // Prueba local en consola para verificar el objeto antes de pasarlo al Dev 3
-    console.log('Ticket creado por Dev 1:', nuevoTicket);
-
-    // 3. Enviamos el objeto "hacia arriba" mediante la prop onTicketCreated
+    // Enviamos el objeto hacia arriba mediante la prop onTicketCreated
     if (onTicketCreated) {
       onTicketCreated(nuevoTicket);
     }
 
-    // 4. Limpiamos los campos del formulario tras guardar con éxito
+    // Limpiamos los campos del formulario tras guardar con éxito
     setEmpresa('');
     setSolicitante('');
     setCorreo('');
-    setcelular('');
+    setCelular(''); // Corregido: antes setcelular (en minúscula) generaba error
     setDescripcion('');
     setPrioridad('Baja');
   };
@@ -98,7 +93,7 @@ export default function TicketForm({ onTicketCreated }) {
         placeholder="Nombre de la empresa"
         value={empresa}
         onChange={(e) => setEmpresa(e.target.value)}
-        required={true} // Con esto ponemos el * y se bloquea el envío si está vacío
+        required={true}
       />
 
       {/* Campo 2: Solicitante */}
@@ -107,27 +102,27 @@ export default function TicketForm({ onTicketCreated }) {
         placeholder="Nombre de quien solicita"
         value={solicitante}
         onChange={(e) => setSolicitante(e.target.value)}
-        required={true} // Con esto ponemos el * y se bloquea el envío si está vacío
+        required={true}
       />
 
-      {/* Campo 3: Correo (NUEVO) */}
+      {/* Campo 3: Correo */}
       <Input
         type="email"
         label="Correo electrónico"
         placeholder="ejemplo@empresa.com"
         value={correo}
         onChange={(e) => setCorreo(e.target.value)}
-        required={true} // Con esto ponemos el * y se bloquea el envío si está vacío
+        required={true}
       />
 
-      {/* Campo 4: Celular (NUEVO) */}
+      {/* Campo 4: Celular */}
       <Input
         type="tel"
         label="Celular"
         placeholder="Número de contacto"
         value={celular}
         onChange={(e) => setCelular(e.target.value)}
-        required={true} // Con esto ponemos el * y se bloquea el envío si está vacío
+        required={true}
       />
 
       {/* Campo 5: Descripción */}
@@ -145,16 +140,13 @@ export default function TicketForm({ onTicketCreated }) {
         value={prioridad}
         onChange={(e) => setPrioridad(e.target.value)}
         required
-        options={["Baja", "Media", "Alta"]} // Le pasamos las opciones como un arreglo
+        options={["Baja", "Media", "Alta"]}
       />
 
       {/* Botón de Enviar */}
-      <Button
-        type="submit">
+      <Button type="submit">
         Guardar ticket
       </Button>
     </form>
   );
 }
-
-

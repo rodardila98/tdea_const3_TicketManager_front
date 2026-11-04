@@ -1,12 +1,13 @@
 import TicketCard from "./TicketCard";
 
-function TicketList({ tickets, onUpdateStatus, onDeleteTicket }) {
+function TicketList({ tickets, onUpdateStatus, onDeleteTicket, esAdmin }) {
   const estilos = {
     lista: {
       display: "grid",
       gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
       gap: "16px",
       padding: "16px 0",
+      alignItems: "stretch", // Todas las tarjetas de una misma fila tienen la misma altura
     },
   };
 
@@ -18,6 +19,7 @@ function TicketList({ tickets, onUpdateStatus, onDeleteTicket }) {
           ticket={ticket}
           onUpdateStatus={onUpdateStatus}
           onDeleteTicket={onDeleteTicket}
+          esAdmin={esAdmin}
         />
       ))}
     </section>

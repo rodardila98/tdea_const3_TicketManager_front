@@ -1,63 +1,80 @@
-// src/api/ticketService.js
+// Servicio para comunicación con la API protegida de tickets del backend
+import { getToken } from "./authService";
 
-// Guardamos la URL en una constante para no repetirla en cada función
 const API_URL = "http://localhost:3001/tickets";
 
-// 1. Obtener todos los tickets (GET)
+// Función auxiliar para construir cabeceras con token JWT
+const getAuthHeaders = () => {
+    const token = getToken();
+    return {
+        "Content-Type": "application/json",
+        ...(token ? { "Authorization": `Bearer ${token}` } : {})
+    };
+};
+
+// 1. Obtener los tickets autorizados (GET)
 export const getTickets = async () => {
-    try {
-        const respuesta = await fetch(API_URL);
-        const datos = await respuesta.json();
-        return datos;
-    } catch (error) {
-        console.error("Error al obtener los tickets:", error);
-        return []; // Retornamos un arreglo vacío para que el map() no falle en React
+    const respuesta = await fetch(API_URL, {
+        method: "GET",
+        headers: getAuthHeaders()
+    });
+
+    const datos = await respuesta.json().catch(() => ({}));
+
+    if (!respuesta.ok) {
+        throw new Error(datos.error || `Error ${respuesta.status}: No se pudieron obtener los tickets`);
     }
+
+    return datos;
 };
 
 // 2. Crear un nuevo ticket (POST)
 export const createTicket = async (nuevoTicket) => {
-    try {
-        const respuesta = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(nuevoTicket), // Convertimos el objeto de JS a texto JSON
-        });
-        const datos = await respuesta.json();
-        return datos; // Retorna el ticket recién creado (con su nuevo ID)
-    } catch (error) {
-        console.error("Error al crear el ticket:", error);
+    const respuesta = await fetch(API_URL, {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify(nuevoTicket),
+    });
+
+    const datos = await respuesta.json().catch(() => ({}));
+
+    if (!respuesta.ok) {
+        const mensajeError = datos.detalles ? datos.detalles.join(', ') : (datos.error || 'Error al crear el ticket');
+        throw new Error(mensajeError);
     }
+
+    return datos;
 };
 
-// 3. Actualizar solo el estado de un ticket (PATCH)
+// 3. Actualizar el estado de un ticket (PATCH)
 export const updateTicket = async (id, nuevoEstado) => {
-    try {
-        const respuesta = await fetch(`${API_URL}/${id}`, {
-            method: "PATCH", // PATCH ya que es el mejor para modificar solo una parte del objeto
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ estado: nuevoEstado }),
-        });
-        const datos = await respuesta.json();
-        return datos;
-    } catch (error) {
-        console.error("Error al actualizar el ticket:", error);
+    const respuesta = await fetch(`${API_URL}/${id}`, {
+        method: "PATCH",
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ estado: nuevoEstado }),
+    });
+
+    const datos = await respuesta.json().catch(() => ({}));
+
+    if (!respuesta.ok) {
+        throw new Error(datos.error || 'Error al actualizar el estado del ticket');
     }
+
+    return datos;
 };
 
 // 4. Eliminar un ticket (DELETE)
 export const deleteTicket = async (id) => {
-    try {
-        const respuesta = await fetch(`${API_URL}/${id}`, {
-            method: "DELETE",
-        });
-        const datos = await respuesta.json();
-        return datos;
-    } catch (error) {
-        console.error("Error al borrar el ticket:", error);
+    const respuesta = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+        headers: getAuthHeaders(),
+    });
+
+    const datos = await respuesta.json().catch(() => ({}));
+
+    if (!respuesta.ok) {
+        throw new Error(datos.error || 'Error al eliminar el ticket');
     }
+
+    return datos;
 };

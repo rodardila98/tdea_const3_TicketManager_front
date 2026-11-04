@@ -1,14 +1,24 @@
 {
   "tickets": [
     {
-      "empresa": "Acme",
+      "empresa": "TechMax",
+      "solicitante": "Alejandro Cadavid",
+      "correo": "alejandro@techmax.com",
+      "celular": "3202399098",
+      "descripcion": "Problemas de conectividad con el sistema de mesh instalado",
+      "prioridad": "Alta",
+      "estado": "Cerrado",
+      "id": "C2RiDi0o2Gg"
+    },
+    {
+      "empresa": "MasterTech",
       "solicitante": "Rodrigo Ardila",
-      "correo": "r@r.com",
-      "celular": "3112816084",
-      "descripcion": "Servidor caído",
-      "prioridad": "Baja",
+      "correo": "rodrigo.ardila@tdea.edu.co",
+      "celular": "3110000000",
+      "descripcion": "El servidor está caído",
+      "prioridad": "Alta",
       "estado": "Abierto",
-      "id": "tdZHHSVmyJs"
+      "id": "KLPqeHFxo94"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

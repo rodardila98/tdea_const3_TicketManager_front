@@ -1,2 +1,2 @@
-npm run dev - Para iniciar el proyecto de React
-npm run server - Para iniciar el "json-server"
+npm run dev - Para iniciar el proyecto de React (Frontend en http://localhost:5173)
+Nota: El backend debe iniciarse en su propia carpeta (tdea_const3_TicketManager_back) con: npm run dev
