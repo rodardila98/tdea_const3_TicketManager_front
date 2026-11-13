@@ -1,7 +1,8 @@
 // Servicio para comunicación con la API protegida de tickets del backend
 import { getToken } from "./authService";
 
-const API_URL = "http://localhost:3001/tickets";
+const API = (import.meta.env.VITE_API_URL || "http://localhost:3001").replace(/\/$/, "");
+const API_URL = `${API}/tickets`;
 
 // Función auxiliar para construir cabeceras con token JWT
 const getAuthHeaders = () => {

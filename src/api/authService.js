@@ -1,5 +1,6 @@
 // Servicio para autenticación y manejo de sesión JWT
-const API_URL = "http://localhost:3001/usuarios";
+const API = (import.meta.env.VITE_API_URL || "http://localhost:3001").replace(/\/$/, "");
+const API_URL = `${API}/usuarios`;
 
 // 1. Iniciar sesión y guardar token en localStorage
 export const login = async (email, password) => {
